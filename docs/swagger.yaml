@@ -1,0 +1,63 @@
+basePath: /api/v1
+definitions:
+  main.Article:
+    properties:
+      content:
+        example: Este é o conteúdo do artigo.
+        type: string
+      id:
+        type: string
+      title:
+        example: Título do Artigo
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: Suporte da API
+    url: http://www.swagger.io/support
+  description: Esta é uma API de exemplo criada em Go com Gin e documentada com Swagger.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API de Exemplo com Swagger
+  version: "1.0"
+paths:
+  /articles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Obtém um artigo pelo seu ID
+      parameters:
+      - description: ID do Artigo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Article'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Mostra um artigo
+      tags:
+      - articles
+securityDefinitions:
+  BearerAuth:
+    description: Digite "Bearer" seguido de um espaço e o token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
